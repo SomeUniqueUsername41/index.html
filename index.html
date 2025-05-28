@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Representing year numbers with addition equations</title>
+  <title>Year numbers with an output that has a drop-down menu</title>
   <style>
     body {
       display: flex;
@@ -37,7 +37,7 @@
 <body>
   <div class="container">
     <div id="output-form">
-      <label for="output-1">Select subtraction number to incoporate in the equation</label>
+      <label for="output-1">Select</label>
       <select id="select-1">
       <option value="679">679</option>
       <option value="678">678</option>
@@ -99,12 +99,47 @@
       <option value="33">33</option>
       <option value="18">18</option>
       <option value="16">16</option>
-        <!-- add more options for other numbers if desired -->
+      <option value="-2">-2</option>
+      <option value="-24">-24</option>
+      <option value="-46">-46</option>
+      <option value="-82">-82</option>
+      <option value="-142">-142</option>
+      <option value="-145">-145</option>
+      <option value="-146">-146</option>
+      <option value="-161">-161</option>
+      <option value="-162">-162</option>
+      <option value="-167">-167</option>
+      <option value="-200">-200</option>
+      <option value="-221">-221</option>
+      <option value="-240">-240</option>
+      <option value="-242">-242</option>
+      <option value="-244">-244</option>
+      <option value="-247">-247</option>
+      <option value="-267">-267</option>
+      <option value="-787">-787</option>
+      <option value="-827">-827</option>
+      <option value="122">122</option>
+      <option value="121">121</option>
+      <option value="67">67</option>
+      <option value="25">25</option>
+      <option value="24">24</option>
+      <option value="3">3</option>
+      <option value="-7">-7</option>
+      <option value="-18">-18</option>
+      <option value="-33">-33</option>
+      <option value="-36">-36</option>
+      <option value="-39">-39</option>
+      <option value="-76">-76</option>
+      <option value="-96">-96</option>
+      <option value="-98">-98</option>
+      <!-- add more options for other numbers to subtract if desired -->
       </select>
-      <input type="text" id="output-1" readonly>
+      <input type="checkbox" id="equation-mode">
+      <label for="equation-mode">Equation Mode</label>
+      <input type="text" id="output-1">
     </div>
     <div id="input-form">
-      <label for="input">Enter year number:</label>
+      <label for="input">Enter year no.:</label>
       <input type="text" id="input">
     </div>
   </div>
@@ -112,21 +147,34 @@
     let input = document.getElementById("input");
     let select1 = document.getElementById("select-1");
     let output1 = document.getElementById("output-1");
-
+    let equationModeCheckbox = document.getElementById("equation-mode");
+    
     function updateOutput() {
       let x = parseInt(input.value);
-      let y = parseInt(select1.value); // Selected number
-      let z = x - y; // Difference between inputted year number and selected number
-
-      if (!isNaN(x)) {
-        output1.value = `(${z} + ${y})`;
+      let y = parseInt(select1.value);
+      let z;
+      
+      if (equationModeCheckbox.checked) {
+        if (y >= 0) {
+          z = x - y;
+          output1.value = "(" + z + " + " + y + ")";
+        } else {
+          z = x + Math.abs(y);
+          output1.value = "(" + z + " - " + Math.abs(y) + ")";
+        }
       } else {
-        output1.value = "";
+        if (y >= 0) {
+          z = x - y;
+        } else {
+          z = x + Math.abs(y);
+        }
+        output1.value = z;
       }
     }
     
     input.addEventListener("input", updateOutput);
     select1.addEventListener("change", updateOutput);
+    equationModeCheckbox.addEventListener("change", updateOutput);
   </script>
 </body>
 </html>
